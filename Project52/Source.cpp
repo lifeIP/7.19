@@ -22,7 +22,7 @@ int main()
 	cout << res << endl;
 	char* str1 = new char[100];
 	char* str2 = new char[110];
-	strcpy(str1, "Привет мир &По8чему п1рикол!");
+	strcpy(str1, "Привет мир &По8чем2у п1рикол!");
 	findANDreplace(str1, str2);
 	cout << str1 << endl;
 	cout << str2 << endl;
@@ -51,15 +51,25 @@ void findANDreplace(char* str_l, char* resault_l) {
 	char rep[] = "100500";
 	char str2[100] = {};
 	char ssss[100] = {};
+	char ssll[100] = {};
 	int was_in = 0;
 	for (int i = 0; i < strlen(str1); i++) {
 		if ((static_cast<int>(str1[i]) >= 48) && (static_cast<int>(str1[i]) <= 57)) {
-			strncpy(str2, was_in+str1, i);
+			strncpy(str2, was_in + str1, i- was_in);
 			strcat(ssss, str2);
-			strcat(ssss, rep);
-			was_in = i;
+			strcat(ssll, str2);
+			strcat(ssll, rep);
+			was_in = i+1;
 		}
 	}
-	cout << ssss<<endl;
+	char sss[20] = {};
+	if (was_in < strlen(str1)) {
+		strncpy(sss, was_in + str1, strlen(str1)- was_in);
+		strcat(ssll, sss);
+	}
 
+	for (int i = 0; i < strlen(ssll); i++)
+	{
+		resault_l[i] = ssll[i];
+	}
 }
