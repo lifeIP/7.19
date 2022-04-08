@@ -22,7 +22,7 @@ int main()
 	cout << res << endl;
 	char* str1 = new char[100];
 	char* str2 = new char[110];
-	strcpy(str1, "Привет мир &По8чем2у п1рикол!");
+	strcpy(str1, "9999999&999999");
 	findANDreplace(str1, str2);
 	cout << str1 << endl;
 	cout << str2 << endl;
@@ -37,39 +37,35 @@ void convert(float y, char* str)
 
 void findANDreplace(char* str_l, char* resault_l) {
 	memset(resault_l, 0, sizeof(char) * 100);
-	char str[250] = {};
-	for (short i = 0; i < strlen(str_l); i++) {
-		str[i] = str_l[i];
-	}
-	short is = 0;
-	char str1[100];
-	short iiis;
 
-	strncpy(str1, str, 100);
-	iiis = strcspn(str1, "&");
-	strncpy(str1, iiis+str, 100);
-	char rep[] = "100500";
-	char str2[100] = {};
-	char ssss[100] = {};
-	char ssll[100] = {};
-	int was_in = 0;
-	for (int i = 0; i < strlen(str1); i++) {
-		if ((static_cast<int>(str1[i]) >= 48) && (static_cast<int>(str1[i]) <= 57)) {
-			strncpy(str2, was_in + str1, i- was_in);
-			strcat(ssss, str2);
-			strcat(ssll, str2);
-			strcat(ssll, rep);
-			was_in = i+1;
+	int adr = 0;
+	char start[250] = {};
+	char end[250] = {};
+
+	for (int i = 0; i < strlen(str_l); i++) {
+		start[i] = str_l[i];
+		adr = i;
+		if (str_l[i] == '&') break;
+	}
+
+	for (int i = adr+1, j = 0; i < strlen(str_l); i++, j++) {
+		end[j] = str_l[i];
+	}
+
+	char res[250] = {};
+	char sas[] = "100500";
+	for (int i = 0; i < strlen(end); i++) {
+		if (end[i] >= '0' && end[i] <= '9') {		
+			strcat(res, sas);
+		}
+		else {
+			strncat(res, i + end, 1);
 		}
 	}
-	char sss[20] = {};
-	if (was_in < strlen(str1)) {
-		strncpy(sss, was_in + str1, strlen(str1)- was_in);
-		strcat(ssll, sss);
-	}
+	strcat(start, res);
 
-	for (int i = 0; i < strlen(ssll); i++)
+	for (int i = 0; i < strlen(start); i++)
 	{
-		resault_l[i] = ssll[i];
+		resault_l[i] = start[i];
 	}
 }
